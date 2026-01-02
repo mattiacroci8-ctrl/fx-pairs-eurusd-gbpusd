@@ -3,7 +3,7 @@ FX Pairs Trading: EUR/USD – GBP/USD
 This repository contains a pairs trading backtest on the EUR/USD and GBP/USD FX spot rates.
 The project is presented as a quantitative research study, focusing on methodology, robustness, and regime dependence rather than performance optimization.
 
-Overview
+OVERVIEW
 
 Assets: EUR/USD and GBP/USD (daily close prices)
 
@@ -13,7 +13,7 @@ Strategy type: Statistical arbitrage / pairs trading
 
 Objective: assess whether a mean-reverting spread can be exploited under realistic assumptions
 
-Methodology
+METHODOLOGY 
 Data
 
 Daily close prices
@@ -62,7 +62,7 @@ Transaction costs applied on both legs (beta-weighted)
 
 Time-based out-of-sample split (70% / 30%)
 
-Results Summary
+RESULTS SUMMARY
 
 Average rolling return correlation: approximately 0.7
 
@@ -76,14 +76,14 @@ No trades generated in the out-of-sample period
 
 These results indicate that the EUR/USD–GBP/USD spread does not exhibit sufficiently fast or stable mean reversion over the 2020–2024 period.
 
-Interpretation
+INTERPRETATION
 
 Despite high liquidity and economic similarity, the EUR/USD–GBP/USD pair shows slow and unstable mean-reverting behavior in recent years.
 The regime filter correctly prevents trading in unfavorable conditions, leading to low exposure and weak out-of-sample performance.
 
 This highlights the regime-dependent nature of FX pairs trading and the importance of diagnostic metrics beyond correlation.
 
-Key Takeaways
+KEY TAKEAWAYS
 
 High return correlation alone is not sufficient for pairs trading
 
@@ -102,7 +102,7 @@ CSV files must include at least the following columns:
 
 Date, Close
 
-Disclaimer
+DISCLAIMER
 
 This project is for educational and research purposes only.
 It does not constitute investment advice.
