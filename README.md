@@ -1,4 +1,4 @@
-#FX Pairs Trading: EUR/USD – GBP/USD
+FX Pairs Trading: EUR/USD – GBP/USD
 
 This repository contains a pairs trading backtest on the EUR/USD and GBP/USD FX spot rates.
 The project is presented as a quantitative research study, focusing on methodology, robustness, and regime dependence rather than performance optimization.
