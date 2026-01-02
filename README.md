@@ -1,7 +1,7 @@
-FX Pairs Trading: EUR/USD – GBP/USD
+#FX Pairs Trading: EUR/USD – GBP/USD
 
-This repository presents a pairs trading backtest on the EUR/USD and GBP/USD FX spot rates using rolling hedge ratios, spread mean-reversion signals, and regime filtering.
-The project is designed as a quantitative research study, with a focus on methodology, robustness, and bias control rather than performance optimization.
+This repository contains a pairs trading backtest on the EUR/USD and GBP/USD FX spot rates.
+The project is presented as a quantitative research study, focusing on methodology, robustness, and regime dependence rather than performance optimization.
 
 Overview
 
@@ -9,125 +9,100 @@ Assets: EUR/USD and GBP/USD (daily close prices)
 
 Period: 2020–2024
 
-Strategy class: Statistical arbitrage / pairs trading
+Strategy type: Statistical arbitrage / pairs trading
 
-Goal: Evaluate whether a mean-reverting spread can be exploited under realistic assumptions
-
-The analysis highlights the regime-dependent nature of FX pairs trading and documents cases where the strategy is inactive or unprofitable.
+Objective: assess whether a mean-reverting spread can be exploited under realistic assumptions
 
 Methodology
-1. Data preprocessing
+Data
 
 Daily close prices
 
 Time zones normalized and removed
 
-Alignment on common trading days
+Series aligned on common trading days
 
-2. Hedge ratio estimation
+Hedge ratio
 
 Rolling OLS regression on log-prices
 
 Window length: 120 trading days
 
-Dynamic hedge ratio (beta_t)
+Time-varying hedge ratio (beta)
 
-3. Spread construction
-Spreadt=log⁡(PtEURUSD)−βtlog⁡(PtGBPUSD)
 Spread
-t
-	​
 
-=log(P
-t
-EURUSD
-	​
+Constructed as log(EUR/USD) minus beta times log(GBP/USD)
 
-)−β
-t
-	​
-
-log(P
-t
-GBPUSD
-	​
-
-)
-4. Signal generation
+Signals
 
 Rolling z-score of the spread
 
-Entry: |z| > 2.5
+Entry when absolute z-score exceeds 2.5
 
-Exit: z = 0
+Exit at mean reversion (z = 0)
 
-Stop: |z| > 3.5
+Stop-loss when absolute z-score exceeds 3.5
 
-5. Regime filter (key component)
+Regime filter
 
 Mean-reversion speed estimated via half-life
 
-Trades allowed only when estimated half-life < 60 days
+Trades allowed only when estimated half-life is below 60 days
 
 Prevents trading during trend-dominated regimes
 
-6. Backtesting assumptions
+Backtest assumptions
 
-Positions executed with one-day lag (no look-ahead bias)
+One-day execution lag (no look-ahead bias)
 
 PnL computed on log-returns (consistent with hedge estimation)
 
 Transaction costs applied on both legs (beta-weighted)
 
-Out-of-sample evaluation via time-based split (70% / 30%)
+Time-based out-of-sample split (70% / 30%)
 
 Results Summary
 
-Average rolling return correlation: ~0.7
+Average rolling return correlation: approximately 0.7
 
-Estimated half-lives: often > 1 year
+Estimated half-lives often exceed one year
 
-Strategy activation: ~25% of the sample
+Strategy activation around 25% of the sample
 
-Number of trades: very limited
+Very limited number of trades
 
-Out-of-sample trades: none
+No trades generated in the out-of-sample period
 
-The results indicate that EUR/USD–GBP/USD does not exhibit sufficiently fast mean reversion over the 2020–2024 period to support a viable daily pairs trading strategy.
+These results indicate that the EUR/USD–GBP/USD spread does not exhibit sufficiently fast or stable mean reversion over the 2020–2024 period.
 
 Interpretation
 
-Despite high liquidity and economic similarity, the EUR/USD–GBP/USD spread shows slow and unstable mean reversion during the sample period.
-This leads to low strategy engagement and weak out-of-sample performance.
+Despite high liquidity and economic similarity, the EUR/USD–GBP/USD pair shows slow and unstable mean-reverting behavior in recent years.
+The regime filter correctly prevents trading in unfavorable conditions, leading to low exposure and weak out-of-sample performance.
 
-Rather than forcing parameter choices to improve returns, the project demonstrates the importance of:
-
-regime awareness,
-
-diagnostic metrics beyond correlation,
-
-and negative results in quantitative research.
+This highlights the regime-dependent nature of FX pairs trading and the importance of diagnostic metrics beyond correlation.
 
 Key Takeaways
 
-High return correlation is not sufficient for pairs trading
+High return correlation alone is not sufficient for pairs trading
 
 Mean-reversion speed is a critical diagnostic
 
-Regime filtering can correctly prevent trading when conditions are unfavorable
+Regime filters help avoid structurally unfavorable periods
 
-Not all economically intuitive pairs generate tradable statistical arbitrage opportunities
+Negative results are informative in quantitative research
 
 How to run
 pip install -r requirements.txt
 python src/long_short_pairs_backtest.py
 
 
-CSV files must contain at least:
+CSV files must include at least the following columns:
 
 Date, Close
 
 Disclaimer
 
 This project is for educational and research purposes only.
-It does not constitute investment advice or a trading recommendation.
+It does not constitute investment advice.
